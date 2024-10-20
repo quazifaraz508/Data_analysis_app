@@ -3,6 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from Portfilio_visiual import Data_visualization
+import sys
+st.write(sys.executable)
 
 st.title("Upload CSV & Excel file.")
 
