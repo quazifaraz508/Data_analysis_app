@@ -22,7 +22,8 @@ class Data_visualization():
         
             
     def chart_data(self, visual_data,maximum_lines, x_axis, maximum_num_heads, selected_marker, markersize_line1):
-       
+        self.grid_fun(visual_data)
+        
         for i in range(maximum_lines):
             y_axis = st.selectbox(f"Select Y-axis for line {i + 1}:", self.df.columns.tolist())
             color = st.color_picker(f"Choose color for {y_axis}:", value='#FF0000',key=f"color_picker_{i}")
@@ -56,7 +57,12 @@ class Data_visualization():
             self.selected_marker = "-"
             self.markersize_line1 = 10
       
-        
+    def grid_fun(self, chart_type):
+        grid_inp = st.radio("select grid:", ["Yes", "No"], key=f"{chart_type}gird_inp")
+        if grid_inp == "Yes":
+            plt.grid()
+        else:
+            pass   
     
     def download_chart(self, value_key):
         plt.xlabel(self.x_axis)
