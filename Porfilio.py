@@ -31,13 +31,13 @@ if uploaded_file is not None:
             encoding_text_inp = st.text_input('enter :')
             try:
                 df = pd.read_csv(uploaded_file,  encoding= encoding_text_inp)
-            except UnicodeDecodeError:
+            except (UnicodeDecodeError, LookupError):
                 st.error('Enter correct encoding.')
                 
         else:
             try:
                 df = pd.read_csv(uploaded_file)
-            except UnicodeDecodeError:
+            except (UnicodeDecodeError, LookupError):
                 st.error('Enter correct encoding.')
                 
         st.write("CSV file uploaded successfully!")
@@ -48,12 +48,12 @@ if uploaded_file is not None:
             encoding_text_inp = st.text_input('enter :')
             try:
                 df = pd.read_excel(uploaded_file , encoding = encoding_text_inp)
-            except UnicodeDecodeError:
+            except (UnicodeDecodeError, LookupError):
                 st.error('Enter correct encoding.')
         else:
             try:
                 df = pd.read_excel(uploaded_file)
-            except UnicodeDecodeError:
+            except (UnicodeDecodeError, LookupError):
                 st.error('Enter correct encoding.')
                 
         st.write("Excel file uploaded successfully!")
@@ -170,8 +170,8 @@ if uploaded_file is not None:
         if option5:
             df_clean = df.drop(columns=option5)
             st.dataframe(df_clean)
-                           
-       
+          
+            
     elif st.session_state.active_section == visualize:
         st.title(visualize)
         # Add your data visualization logic here
@@ -180,5 +180,4 @@ if uploaded_file is not None:
     elif st.session_state.active_section == analysis:
         st.title(analysis)
         # Add your data analysis logic here
-        st.header("Under construction......!")
-st.write("**Developed by Faraz**")
+        st.write("**Developed by Faraz**")
