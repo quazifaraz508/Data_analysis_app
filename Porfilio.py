@@ -3,8 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from Portfilio_visiual import Data_visualization
-import sys
-st.write(sys.executable)
 
 st.title("Upload CSV & Excel file.")
 
@@ -24,15 +22,40 @@ button_style = """
     """
 st.markdown(button_style, unsafe_allow_html=True)
 
+encoding_inp =st.radio('enter encoding:', ['No', 'Yes'])
 # Check if file is uploaded
 if uploaded_file is not None:
     # Handle CSV file
     if uploaded_file.name.endswith('.csv'):
-        df = pd.read_csv(uploaded_file,  encoding='latin1')
+        if encoding_inp == 'Yes':
+            encoding_text_inp = st.text_input('enter :')
+            try:
+                df = pd.read_csv(uploaded_file,  encoding= encoding_text_inp)
+            except UnicodeDecodeError:
+                st.error('Enter correct encoding.')
+                
+        else:
+            try:
+                df = pd.read_csv(uploaded_file)
+            except UnicodeDecodeError:
+                st.error('Enter correct encoding.')
+                
         st.write("CSV file uploaded successfully!")
+            
     # Handle Excel file
     elif uploaded_file.name.endswith('.xlsx'):
-        df = pd.read_excel(uploaded_file)
+        if encoding_inp == 'Yes':
+            encoding_text_inp = st.text_input('enter :')
+            try:
+                df = pd.read_excel(uploaded_file , encoding = encoding_text_inp)
+            except UnicodeDecodeError:
+                st.error('Enter correct encoding.')
+        else:
+            try:
+                df = pd.read_excel(uploaded_file)
+            except UnicodeDecodeError:
+                st.error('Enter correct encoding.')
+                
         st.write("Excel file uploaded successfully!")
     if 'show_data' not in st.session_state:
         st.session_state.show_data = False
@@ -148,14 +171,7 @@ if uploaded_file is not None:
             df_clean = df.drop(columns=option5)
             st.dataframe(df_clean)
                            
-        # display_btn2 = st.button("Show/Hide updated Data")
-        
-        # if display_btn2:
-        #     st.session_state.show_data = not st.session_state.show_data
-
-        # if st.session_state.show_data:
-        #     st.dataframe(df_clean)
-            
+       
     elif st.session_state.active_section == visualize:
         st.title(visualize)
         # Add your data visualization logic here
@@ -164,4 +180,4 @@ if uploaded_file is not None:
     elif st.session_state.active_section == analysis:
         st.title(analysis)
         # Add your data analysis logic here
-
+        st.write("**Developed by Faraz**")
