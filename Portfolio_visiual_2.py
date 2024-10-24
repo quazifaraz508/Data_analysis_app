@@ -39,9 +39,12 @@ class Bar_Chart():
             color_inp = st.color_picker(f"Choose color for {y_axis_bar}:", value='#FF0000',key=f"color_picker_bar{i}")
             
             bar_positions = np.arange(len(x_values)) + (i - (maximum_lines - 1) / 2) * width
+            try:
+                
+                plt.bar(bar_positions, self.df[y_axis_bar].head(maximum_num_heads), width=width, color=color_inp, label= y_axis_bar)
+            except ValueError:
+                st.error("Please select a valid column for the Y-axis")
             
-            plt.bar(bar_positions, self.df[y_axis_bar].head(maximum_num_heads), width=width, color=color_inp, label= y_axis_bar)
-      
         plt.xticks(np.arange(len(x_values)), x_values, rotation=self.rotation_inp)
         
     def download_chart(self, value_key):
@@ -68,9 +71,9 @@ class Bar_Chart():
         
     def bar_chart_logic(self):
         chart_type= "bar_chart"
-            
-        self.show_data_bar_chart(chart_type)
+        st.title("Bar Chart")
         
+        self.show_data_bar_chart(chart_type)
 
         self.download_chart(chart_type)
     
