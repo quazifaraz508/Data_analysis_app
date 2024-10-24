@@ -180,4 +180,5 @@ if uploaded_file is not None:
     elif st.session_state.active_section == analysis:
         st.title(analysis)
         # Add your data analysis logic here
-        st.write("**Developed by Faraz**")
+        st.header("Under Construction.....!")
+st.write("**Developed by Faraz**")
