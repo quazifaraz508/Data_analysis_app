@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from io import BytesIO
 from Portfolio_visiual_2 import Bar_Chart
+from Portfolio_visiual_3 import HeatMap
 
 
 
@@ -56,13 +57,14 @@ class Data_visualization():
         else:
             self.selected_marker = "-"
             self.markersize_line1 = 10
-      
+        
+
     def grid_fun(self, chart_type):
         grid_inp = st.radio("select grid:", ["Yes", "No"], key=f"{chart_type}gird_inp")
         if grid_inp == "Yes":
             plt.grid()
         else:
-            pass   
+            pass  
     
     def download_chart(self, value_key):
         plt.xlabel(self.x_axis)
@@ -90,11 +92,10 @@ class Data_visualization():
         visual_data = "basic_line_chart"
         
         st.title("Line Chart")
-
         self.show_data(visual_data, visual_data)
         plt.figure(figsize=(self.fig_width, self.fig_height))
         self.chart_data( visual_data,self.maximum_lines, self.x_axis, self.maximum_num_heads, self.selected_marker, self.markersize_line1)    
-    
+     
         self.download_chart(visual_data)
         
     
@@ -151,3 +152,8 @@ class Data_visualization():
         if data_visulization_op2 == "Bar Chart":
             data_bar_chart = Bar_Chart(self.df)
             data_bar_chart.main()
+        
+        data_visulization_op3 = st.selectbox("Heatmap", ["None","Heatmap","Clustered  Heatmap","Heatmap with pivot"])
+        if data_visulization_op3:
+            data_heatmap = HeatMap(self.df)
+            data_heatmap.main(data_visulization_op3)
