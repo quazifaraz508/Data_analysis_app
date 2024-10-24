@@ -113,10 +113,14 @@ class HeatMap():
         column_pivot = st.selectbox('Select columns of heatmap:', self.df.columns.tolist(), key=f"{chart_type}columns")
         values_pivot = st.selectbox('Select valuse of heatmap:', self.df.columns.tolist(), key= f"{chart_type}values")
         colormaps_pivot = st.selectbox('select colormaps:', colormaps_pivot_list)
-        aggfun_pivot = st.selectbox('Select aggregate function of heatmap:', ['mean','sum','count','min','max'], key= f"{chart_type}aggfun")
+        aggfun_pivot = st.selectbox('Select aggregate function of heatmap:', ['None','mean','sum','count','min','max'], key= f"{chart_type}aggfun")
         try:
-            pivot_df = self.df.pivot_table(index = index_pivot, columns = column_pivot, values= values_pivot, aggfunc = aggfun_pivot)
-        
+            if aggfun_pivot == 'None':
+                
+                pivot_df = self.df.pivot_table(index = index_pivot, columns = column_pivot, values= values_pivot)
+            else:
+                pivot_df = self.df.pivot_table(index = index_pivot, columns = column_pivot, values= values_pivot, aggfunc = aggfun_pivot)
+                
             
             annot_pivot = st.radio('display numbers:', ['No','Yes'])
             linewidth_pivot = st.radio('Select Linewidth:', ['No','Yes'])
