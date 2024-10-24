@@ -153,7 +153,7 @@ class Data_visualization():
             data_bar_chart = Bar_Chart(self.df)
             data_bar_chart.main()
         
-        data_visulization_op3 = st.selectbox("Heatmap", ["None","Heatmap""Heatmap with pivot","Clustered  Heatmap"])
+        data_visulization_op3 = st.selectbox("Heatmap", ["None","Heatmap","Heatmap with pivot","Clustered  Heatmap"])
         if data_visulization_op3:
             data_heatmap = HeatMap(self.df)
             data_heatmap.main(data_visulization_op3)
