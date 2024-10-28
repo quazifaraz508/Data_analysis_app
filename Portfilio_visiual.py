@@ -5,7 +5,7 @@ import seaborn as sns
 from io import BytesIO
 from Portfolio_visiual_2 import Bar_Chart
 from Portfolio_visiual_3 import HeatMap
-
+from Portfolio_visiual_4 import Pie_chart
 
 
 class Data_visualization():
@@ -153,7 +153,12 @@ class Data_visualization():
             data_bar_chart = Bar_Chart(self.df)
             data_bar_chart.main()
         
-        data_visulization_op3 = st.selectbox("Heatmap", ["None","Heatmap","Heatmap with pivot","Clustered  Heatmap"])
+        data_visulization_op3 = st.selectbox("Heatmap", ["None","Heatmap","Clustered  Heatmap","Heatmap with pivot"])
         if data_visulization_op3:
             data_heatmap = HeatMap(self.df)
             data_heatmap.main(data_visulization_op3)
+        
+        data_visulization_op4 = st.selectbox("Pie Chart:", ['None','pie chart'])
+        if data_visulization_op4 == 'pie chart':
+            data_pie_chart = Pie_chart(self.df)
+            data_pie_chart.main()
